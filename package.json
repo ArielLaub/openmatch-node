@@ -1,0 +1,24 @@
+{
+  "name": "openmatch-node",
+  "version": "0.1.0",
+  "description": "an open match SDK implementation in typescript",
+  "main": "dist/index.js",
+  "scripts": {
+    "copy-protos": "cd src && find . -name '*.proto' -type f -exec rsync -R {} ../dist \\;",
+    "build": "rimraf ./dist && tsc && npm run copy-protos"
+  },
+  "author": "Ariel Laub",
+  "repository": {
+    "type": "git",
+    "url": "github:ArielLaub/openmatch-node.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@grpc/grpc-js": "^1.8.15",
+    "@grpc/proto-loader": "^0.7.7"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.1",
+    "typescript": "^5.1.3"
+  }
+}
