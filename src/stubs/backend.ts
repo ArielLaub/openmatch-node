@@ -13,7 +13,6 @@ export default class BackendService implements IBackendService {
 
     constructor(address: string) {
         this.client = new RpcBackendService(address, grpc.credentials.createInsecure());
-        
     }
 
     fetchMatches(req: IFetchMatchesRequest): grpc.ClientReadableStream<IMatch> {

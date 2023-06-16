@@ -26,6 +26,7 @@ export const protoDescriptor = <any>grpc.loadPackageDefinition(packageDefinition
 export const RpcQueryService = protoDescriptor.openmatch.QueryService;
 export const RpcFrontendService = protoDescriptor.openmatch.FrontendService;
 export const RpcBackendService = protoDescriptor.openmatch.BackendService;
+export const RpcMatchFunction = protoDescriptor.openmatch.MatchFunction;
 
 // Google protobuf types
 export interface IAny {
