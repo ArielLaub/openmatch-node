@@ -1,8 +1,9 @@
 {
   "name": "openmatch-node",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "an open match SDK implementation in typescript",
   "main": "dist/index.js",
+  "files": ["dist/**/*"],
   "scripts": {
     "copy-protos": "cd src && find . -name '*.proto' -type f -exec rsync -R {} ../dist \\;",
     "build": "rimraf ./dist && tsc && npm run copy-protos",
