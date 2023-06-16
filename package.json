@@ -7,7 +7,7 @@
   "scripts": {
     "copy-protos": "cd src && find . -name '*.proto' -type f -exec rsync -R {} ../dist \\;",
     "build": "rimraf ./dist && tsc && npm run copy-protos",
-    "postinstall": "npm run build"
+    "prepare": "npm run build"
   },
   "author": "Ariel Laub",
   "repository": {
