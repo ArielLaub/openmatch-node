@@ -2,8 +2,17 @@
   "name": "openmatch-node",
   "version": "0.1.2",
   "description": "an open match SDK implementation in typescript",
-  "main": "dist/index.js",
+  "main": "index.js",
   "files": ["dist/**/*"],
+  "exports": {
+    "./definitions": "./dist/definitions.js",
+    "./stubs/frontend": "./dist/stubs/frontend.js",
+    "./stubs/backend": "./dist/stubs/backend.js",
+    "./stubs/query": "./dist/stubs/query.js",
+    "./services/matchfuncion": "./dist/services/matchFunction.js",
+    "./helpers/querypool": "./dist/helpers/queryPool.js",
+    "./helpers": "./dist/helpers/index.js"
+  },
   "scripts": {
     "copy-protos": "cd src && find . -name '*.proto' -type f -exec rsync -R {} ../dist \\;",
     "build": "rimraf ./dist && tsc && npm run copy-protos",
