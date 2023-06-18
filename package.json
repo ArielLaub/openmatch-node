@@ -1,6 +1,6 @@
 {
   "name": "openmatch-node",
-  "version": "0.1.5",
+  "version": "0.1.7",
   "description": "an open match SDK implementation in typescript",
   "main": "dist/index.js",
   "files": ["dist/**/*"],
@@ -12,6 +12,17 @@
     "./services/matchfuncion": "./dist/services/matchFunction.js",
     "./helpers/querypool": "./dist/helpers/queryPool.js",
     "./helpers": "./dist/helpers/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      "definitions": ["dist/definitions.d.ts"],
+      "stubs/frontend": ["dist/stubs/frontend.d.ts"],
+      "stubs/backend": ["dist/stubs/backend.d.ts"],
+      "stubs/query": ["dist/stubs/query.d.ts"],
+      "services/matchfuncion": ["dist/services/matchFunction.d.ts"],
+      "helpers/querypool": ["dist/helpers/queryPool.d.ts"],
+      "helpers": ["dist/helpers/index.d.ts"]
+    }
   },
   "scripts": {
     "copy-protos": "cd src && find . -name '*.proto' -type f -exec rsync -R {} ../dist \\;",
