@@ -1,6 +1,6 @@
 {
   "name": "openmatch-node",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "an open match SDK implementation in typescript",
   "main": "dist/index.js",
   "files": ["dist/**/*"],
@@ -32,7 +32,7 @@
   "author": "Ariel Laub",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/ArielLaub/openmatch-node.git"
+    "url": "git+https://git@github.com/ArielLaub/openmatch-node"
   },
   "license": "MIT",
   "dependencies": {
