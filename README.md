@@ -1,6 +1,10 @@
 # openmatch-node
-an unofficial typescript implementation of the open-match SDK
-the open match framework consists of several gRPC services and consumers. A few provided by open-match core installation and others need to be implemented by the game developers. This library provide and typescript API implementing the underlying gRPC and protobuf communication
+an unofficial typescript implementation of the open-match SDK.
+
+## Scope and Goals
+the open match framework consists of several gRPC services and consumers. A few provided by open-match core installation and others need to be implemented by the game developers. This library is a typescript implementation of gRPC/protobuf API allowing ts/js developers to implement a  highly scalable match maker based on open-match for multiplayer games.
+deployment of open match even locally is based on kubernetes (minikube for local installation). All the installation instructions can be found on https://www.openmatch.dev
+
 follow the official docs, the tutorials in this repo are a typescript implementation of the original tutorials written in golang. You can find the original tutorials here:
 https://github.com/googleforgames/open-match/tree/main/tutorials
 
