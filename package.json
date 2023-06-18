@@ -1,6 +1,6 @@
 {
   "name": "openmatch-node",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "an open match SDK implementation in typescript",
   "main": "dist/index.js",
   "files": ["dist/**/*"],
@@ -19,7 +19,7 @@
       "stubs/frontend": ["dist/stubs/frontend.d.ts"],
       "stubs/backend": ["dist/stubs/backend.d.ts"],
       "stubs/query": ["dist/stubs/query.d.ts"],
-      "services/matchfuncion": ["dist/services/matchFunction.d.ts"],
+      "services/matchfunction": ["dist/services/matchFunction.d.ts"],
       "helpers/querypool": ["dist/helpers/queryPool.d.ts"],
       "helpers": ["dist/helpers/index.d.ts"]
     }
