@@ -5,7 +5,11 @@ export function startMatchFunctionService(serverPort: number, run: (req: IRunReq
     let server = new grpc.Server();
     server.addService(RpcMatchFunction.service, { 
         Run: async (call: grpc.ServerWritableStream<IRunRequest, IMatch>) => {
-            return run(call.request);
+            const matches = await run(call.request);
+            for (const match of matches) {
+                call.write(match);
+            }
+            call.end();
         }
     });
 
