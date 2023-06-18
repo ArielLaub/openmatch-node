@@ -1,8 +1,8 @@
 {
   "name": "openmatch-node",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "an open match SDK implementation in typescript",
-  "main": "index.js",
+  "main": "dist/index.js",
   "files": ["dist/**/*"],
   "exports": {
     "./definitions": "./dist/definitions.js",
