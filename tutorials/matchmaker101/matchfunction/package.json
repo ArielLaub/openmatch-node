@@ -1,0 +1,24 @@
+{
+  "name": "mm101-tutorial-matchfunction",
+  "version": "1.0.0",
+  "description": "an open match matchfunction service in node.js",
+  "main": "dist/matchfunction.js",
+  "scripts": {
+    "dev": "ts-node-dev ./src/matchfunction.ts",
+    "build": "rimraf ./dist && tsc",
+    "docker-build": "npm run build && docker build -t openmatch/matchfunction .",
+    "start": "node ./dist/matchfunction.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@grpc/grpc-js": "^1.8.15",
+    "@grpc/proto-loader": "^0.7.7",
+    "openmatch-node": "^0.1.0"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.1.3"
+  }
+}
