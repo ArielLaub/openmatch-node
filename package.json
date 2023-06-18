@@ -3,7 +3,9 @@
   "version": "0.1.12",
   "description": "an open match SDK implementation in typescript",
   "main": "dist/index.js",
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "exports": {
     "./definitions": "./dist/definitions.js",
     "./stubs/frontend": "./dist/stubs/frontend.js",
@@ -15,13 +17,27 @@
   },
   "typesVersions": {
     "*": {
-      "definitions": ["dist/definitions.d.ts"],
-      "stubs/frontend": ["dist/stubs/frontend.d.ts"],
-      "stubs/backend": ["dist/stubs/backend.d.ts"],
-      "stubs/query": ["dist/stubs/query.d.ts"],
-      "services/matchfunction": ["dist/services/matchFunction.d.ts"],
-      "helpers/querypool": ["dist/helpers/queryPool.d.ts"],
-      "helpers": ["dist/helpers/index.d.ts"]
+      "definitions": [
+        "dist/definitions.d.ts"
+      ],
+      "stubs/frontend": [
+        "dist/stubs/frontend.d.ts"
+      ],
+      "stubs/backend": [
+        "dist/stubs/backend.d.ts"
+      ],
+      "stubs/query": [
+        "dist/stubs/query.d.ts"
+      ],
+      "services/matchfunction": [
+        "dist/services/matchFunction.d.ts"
+      ],
+      "helpers/querypool": [
+        "dist/helpers/queryPool.d.ts"
+      ],
+      "helpers": [
+        "dist/helpers/index.d.ts"
+      ]
     }
   },
   "scripts": {
