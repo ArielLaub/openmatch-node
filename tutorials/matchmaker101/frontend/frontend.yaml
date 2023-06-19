@@ -20,6 +20,6 @@ metadata:
 spec:
   containers:
   - name: mm101-tutorial-frontend
-    image: REGISTRY_PLACEHOLDER/mm101-tutorial-frontend:latest
+    image: remarkable/mm101-tutorial-frontend:latest
     imagePullPolicy: IfNotPresent
   hostname: mm101-tutorial-frontend

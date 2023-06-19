@@ -23,7 +23,7 @@ metadata:
 spec:
   containers:
   - name: mm101-tutorial-matchfunction
-    image: REGISTRY_PLACEHOLDER/mm101-tutorial-matchfunction:latest
+    image: remarkable/mm101-tutorial-matchfunction:latest
     imagePullPolicy: IfNotPresent
     ports:
     - name: grpc

@@ -17,7 +17,8 @@ const queryClient = new QueryService(queryServiceAddress);
 let count = 0;
 function makeMatches(p: IMatchProfile, poolTickets: { [pool: string]: ITicket[] }): IMatch[] {
     const matches: IMatch[] = [];
-  
+    console.log(`Generating proposals for profile ${p.name}`);
+    console.log(JSON.stringify(p, null, 2))
     while (true) {
         let insufficientTickets = false;
         const matchTickets: ITicket[] = [];
