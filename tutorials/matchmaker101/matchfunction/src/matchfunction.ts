@@ -1,4 +1,4 @@
-import { IRunRequest, IMatch, IMatchProfile, ITicket } from 'openmatch-node/definitions';
+import { IRunRequest, IRunResponse, IMatch, IMatchProfile, ITicket } from 'openmatch-node/definitions';
 import { startMatchFunctionService } from 'openmatch-node/services/matchfunction';
 import QueryService from 'openmatch-node/stubs/query';
 import { queryPools } from 'openmatch-node/helpers/querypool';
@@ -15,11 +15,11 @@ const matchName = 'basic-matchfunction';
 
 const queryClient = new QueryService(queryServiceAddress);
 
-function makeMatches(p: IMatchProfile, poolTickets: { [pool: string]: ITicket[] }): IMatch[] {
-    const matches: IMatch[] = [];
-    let count = 0;
+function makeMatches(p: IMatchProfile, poolTickets: { [pool: string]: ITicket[] }): IRunResponse[] {
+    const responses: IRunResponse[] = [];
+    // let count = 0;
     console.log(`Generating proposals for profile ${p.name}`);
-    while (true && matches.length < 100) {
+    while (true && responses.length < 100) {
         let emptyPools = 0;
         const poolNames = Object.keys(poolTickets);
         const matchTickets: ITicket[] = [];  
@@ -41,19 +41,21 @@ function makeMatches(p: IMatchProfile, poolTickets: { [pool: string]: ITicket[] 
 
         //const matchId = `profile-${p.name}-time-${new Date().toISOString()}-${count++}`;
         const matchId = uuid();
-        matches.push({
-            match_id: matchId,
-            match_profile: p.name,
-            match_function: matchName,
-            tickets: matchTickets,
+        responses.push({
+            proposal: {
+                match_id: matchId,
+                match_profile: p.name,
+                match_function: matchName,
+                tickets: matchTickets,
+            }
         });
         console.log(`   -> Generated match ${matchId} with ${matchTickets.length} tickets`);
     }
-    console.log(`Generated ${matches.length} proposals for profile ${p.name}`);
-    return matches;
+    console.log(`Generated ${responses.length} proposals for profile ${p.name}`);
+    return responses;
 }
 
-async function run(req: IRunRequest): Promise<IMatch[]> {
+async function run(req: IRunRequest): Promise<IRunResponse[]> {
     // Fetch tickets for the pools specified in the Match Profile.
     console.log(`Generating proposals for function ${req.profile.name}`)
     let poolTickets: Record<string, ITicket[]>;
@@ -65,7 +67,7 @@ async function run(req: IRunRequest): Promise<IMatch[]> {
     }
 
     // Generate proposals.
-    let proposals: IMatch[];
+    let proposals: IRunResponse[];
     try {
         proposals = makeMatches(req.profile, poolTickets)
     } catch (err) {

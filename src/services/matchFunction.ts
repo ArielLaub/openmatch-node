@@ -1,13 +1,13 @@
 import * as grpc from '@grpc/grpc-js';
-import { IRunRequest, IMatch, RpcMatchFunction } from '../definitions';
+import { IRunRequest, IRunResponse, RpcMatchFunction } from '../definitions';
 
-export function startMatchFunctionService(serverPort: number, run: (req: IRunRequest) => Promise<IMatch[]>) {
+export function startMatchFunctionService(serverPort: number, run: (req: IRunRequest) => Promise<IRunResponse[]>) {
     let server = new grpc.Server();
     server.addService(RpcMatchFunction.service, { 
-        Run: (call: grpc.ServerWritableStream<IRunRequest, IMatch>) => {
-            run(call.request).then(matches => {
-                for(let i = 0; i < matches.length; i++) {
-                    call.write(matches[i]);
+        Run: (call: grpc.ServerWritableStream<IRunRequest, IRunResponse>) => {
+            run(call.request).then(responses => {
+                for(let i = 0; i < responses.length; i++) {
+                    call.write(responses[i]);
                 }
                 call.end();
             });
