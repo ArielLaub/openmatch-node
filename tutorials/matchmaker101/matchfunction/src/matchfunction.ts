@@ -2,7 +2,7 @@ import { IRunRequest, IRunResponse, IMatch, IMatchProfile, ITicket } from 'openm
 import { startMatchFunctionService } from 'openmatch-node/services/matchfunction';
 import QueryService from 'openmatch-node/stubs/query';
 import { queryPools } from 'openmatch-node/helpers/querypool';
-import { uuid } from 'uuidv4';
+import { v4 as uuidv4 } from 'uuid';
 
 // the endpoint for the Open Match query service.
 const queryServiceAddress = 'open-match-query.open-match.svc.cluster.local:50503';
@@ -40,7 +40,7 @@ function makeMatches(p: IMatchProfile, poolTickets: { [pool: string]: ITicket[] 
         }
 
         //const matchId = `profile-${p.name}-time-${new Date().toISOString()}-${count++}`;
-        const matchId = uuid();
+        const matchId = uuidv4();
         responses.push({
             proposal: {
                 match_id: matchId,
