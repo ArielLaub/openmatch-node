@@ -6,6 +6,7 @@ import {
     IAssignTicketsRequest,
     IAssignTicketsResponse,
     IFetchMatchesRequest,
+    IFetchMatchesResponse,
     IMatch } from '../definitions';
 
 export default class BackendService implements IBackendService {
@@ -15,7 +16,7 @@ export default class BackendService implements IBackendService {
         this.client = new RpcBackendService(address, grpc.credentials.createInsecure());
     }
 
-    fetchMatches(req: IFetchMatchesRequest): grpc.ClientReadableStream<IMatch> {
+    fetchMatches(req: IFetchMatchesRequest): grpc.ClientReadableStream<IFetchMatchesResponse> {
         return this.client.FetchMatches(req);
     }
 
@@ -27,7 +28,7 @@ export default class BackendService implements IBackendService {
         });
     }
 
-    fetchMatchesAsync(req: IFetchMatchesRequest): Promise<IMatch[]> {
-        return readRpcStream<IMatch>(this.client.FetchMatches(req));
+    fetchMatchesAsync(req: IFetchMatchesRequest): Promise<IFetchMatchesResponse[]> {
+        return readRpcStream<IFetchMatchesResponse>(this.client.FetchMatches(req));
     }
 }

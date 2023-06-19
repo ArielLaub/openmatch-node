@@ -178,6 +178,10 @@ export interface IFetchMatchesRequest {
     profile: IMatchProfile;
 }
 
+export interface IFetchMatchesResponse {
+    match: IMatch;
+}
+
 export interface IAssignmentGroup {
     ticket_ids: string[];
     assignment: IAssignment;
@@ -226,8 +230,8 @@ export interface IQueryService {
 }
 
 export interface IBackendService {
-    fetchMatches(req: IFetchMatchesRequest): grpc.ClientReadableStream<IMatch>;
+    fetchMatches(req: IFetchMatchesRequest): grpc.ClientReadableStream<IFetchMatchesResponse>;
     assignTickets(req: IAssignTicketsRequest): Promise<IAssignTicketsResponse>;
 
-    fetchMatchesAsync(req: IFetchMatchesRequest): Promise<IMatch[]>;
+    fetchMatchesAsync(req: IFetchMatchesRequest): Promise<IFetchMatchesResponse[]>;
 }
