@@ -39,7 +39,7 @@
       "helpers/readrpcstream": [
         "dist/helpers/readRpcStream.d.ts"
       ],
-      "helpers/marshalAny": [
+      "helpers/marshalany": [
         "dist/helpers/marshalAny.d.ts"
       ]
     }

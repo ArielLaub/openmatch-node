@@ -3,7 +3,7 @@ import { startMatchFunctionService } from 'openmatch-node/services/matchfunction
 import QueryService from 'openmatch-node/stubs/query';
 import { queryPools } from 'openmatch-node/helpers/matchfunction';
 import { v4 as uuidv4 } from 'uuid';
-import marshalAny from 'openmatch-node/helpers/marshalAny';
+import marshalAny from 'openmatch-node/helpers/marshalany';
 
 // the endpoint for the Open Match query service.
 const queryServiceAddress = 'open-match-query.open-match.svc.cluster.local:50503';
@@ -27,6 +27,12 @@ function scoreCalculator(tickets: ITicket[]): number {
 function makeMatches(p: IMatchProfile, poolTickets: { [pool: string]: ITicket[] }): IRunResponse[] {
     const responses: IRunResponse[] = [];
     // let count = 0;
+    const matchScore = scoreCalculator(matchTickets)
+    const evaluationInput = marshalAny({
+        Score: matchScore,
+    }, 'DefaultEvaluationCriteria');
+    marshalAny({}, 1);
+
     console.log(`Generating proposals for profile ${p.name}`);
     while (true && responses.length < 100) {
         let emptyPools = 0;

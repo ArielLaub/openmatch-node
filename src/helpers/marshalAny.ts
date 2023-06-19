@@ -14,6 +14,7 @@ export default function marshalAny(obj: any, typeName: string): IAny {
   const message = new protoDescriptor.openmatch[typeName](obj);
   return {
       type_url: `type.googleapis.com/openmatch.${typeName}`,
+      //value: Message.encode(message).finish()
       value: uintArrayToBuffer(Message.encode(message).finish())
   }
 }
