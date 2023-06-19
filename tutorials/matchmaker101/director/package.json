@@ -6,8 +6,11 @@
   "scripts": {
     "dev": "ts-node-dev ./src/director.ts",
     "build": "rimraf ./dist && tsc",
-    "start": "node ./dist/director.js"
-  },
+    "start": "node ./dist/director.js",
+    "kube:build": "docker build -t remarkable/mm101-tutorial-director . && minikube image load remarkable/mm101-tutorial-director",
+    "kube:logs": "kubectl logs mm101-tutorial-director -n mm101-tutorial",
+    "kube:apply": "kubectl delete -f director.yaml && kubectl apply -f director.yaml"  
+},
   "author": "",
   "license": "ISC",
   "dependencies": {

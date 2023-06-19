@@ -7,14 +7,18 @@
     "dev": "ts-node-dev ./src/matchfunction.ts",
     "build": "rimraf ./dist && tsc",
     "docker-build": "npm run build && docker build -t openmatch/matchfunction .",
-    "start": "node ./dist/matchfunction.js"
+    "start": "node ./dist/matchfunction.js",
+    "kube:build": "docker build -t remarkable/mm101-tutorial-matchfunction . && minikube image load remarkable/mm101-tutorial-matchfunction",
+    "kube:logs": "kubectl logs mm101-tutorial-matchfunction -n mm101-tutorial",
+    "kube:apply": "kubectl delete -f matchfunction.yaml && kubectl apply -f matchfunction.yaml"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@grpc/grpc-js": "^1.8.15",
     "@grpc/proto-loader": "^0.7.7",
-    "openmatch-node": "^0.1.0"
+    "openmatch-node": "^0.1.0",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "rimraf": "^5.0.1",

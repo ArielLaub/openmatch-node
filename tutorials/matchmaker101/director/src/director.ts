@@ -1,7 +1,6 @@
 import { 
     IMatchProfile, 
     IBackendService, 
-    IFetchMatchesRequest, 
     IAssignTicketsRequest,
     IMatch,
     FunctionConfigType } from 'openmatch-node/definitions';

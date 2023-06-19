@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "ts-node-dev ./src/frontend.ts",
     "build": "rimraf ./dist && tsc",
-    "start": "node ./dist/frontend.js"
+    "start": "node ./dist/frontend.js",
+    "kube:build": "docker build -t remarkable/mm101-tutorial-frontend . && minikube image load remarkable/mm101-tutorial-frontend",
+    "kube:logs": "kubectl logs mm101-tutorial-frontend -n mm101-tutorial",
+    "kube:apply": "kubectl delete -f frontend.yaml && kubectl apply -f frontend.yaml"  
   },
   "author": "Ariel Laub",
   "license": "ISC",

@@ -2,6 +2,7 @@ import { IRunRequest, IMatch, IMatchProfile, ITicket } from 'openmatch-node/defi
 import { startMatchFunctionService } from 'openmatch-node/services/matchfunction';
 import QueryService from 'openmatch-node/stubs/query';
 import { queryPools } from 'openmatch-node/helpers/querypool';
+import { uuid } from 'uuidv4';
 
 // the endpoint for the Open Match query service.
 const queryServiceAddress = 'open-match-query.open-match.svc.cluster.local:50503';
@@ -14,43 +15,41 @@ const matchName = 'basic-matchfunction';
 
 const queryClient = new QueryService(queryServiceAddress);
 
-let count = 0;
 function makeMatches(p: IMatchProfile, poolTickets: { [pool: string]: ITicket[] }): IMatch[] {
     const matches: IMatch[] = [];
+    let count = 0;
     console.log(`Generating proposals for profile ${p.name}`);
-    console.log(JSON.stringify(p, null, 2))
-    while (true) {
-        let insufficientTickets = false;
-        const matchTickets: ITicket[] = [];
-  
-      for (const pool in poolTickets) {
-        const tickets = poolTickets[pool];
-  
-        if (tickets.length < ticketsPerPoolPerMatch) {
-          // This pool is completely drained out. Stop creating matches.
-          insufficientTickets = true;
-          break;
+    while (true && matches.length < 100) {
+        let emptyPools = 0;
+        const poolNames = Object.keys(poolTickets);
+        const matchTickets: ITicket[] = [];  
+        for (let i = 0; i < poolNames.length; i++) {
+            const poolName = poolNames[i];
+            const tickets = poolTickets[poolName];
+            if (tickets.length < ticketsPerPoolPerMatch) {
+                // This pool is completely drained out. Stop creating matches.
+                emptyPools++;
+            } else {
+                // Remove the Tickets from this pool and add to the match proposal.
+                matchTickets.push(...tickets.slice(0, ticketsPerPoolPerMatch));
+                poolTickets[poolName] = tickets.slice(ticketsPerPoolPerMatch);
+            }
         }
-  
-        // Remove the Tickets from this pool and add to the match proposal.
-        matchTickets.push(...tickets.slice(0, ticketsPerPoolPerMatch));
-        poolTickets[pool] = tickets.slice(ticketsPerPoolPerMatch);
-      }
-  
-      if (insufficientTickets) {
-        break;
-      }
-  
-      matches.push({
-        match_id: `profile-${p.name}-time-${new Date().toISOString()}-${count}`,
-        match_profile: p.name,
-        match_function: matchName,
-        tickets: matchTickets,
-      });
-  
-      count++;
+        if (emptyPools == poolNames.length) {
+            break;
+        }
+
+        //const matchId = `profile-${p.name}-time-${new Date().toISOString()}-${count++}`;
+        const matchId = uuid();
+        matches.push({
+            match_id: matchId,
+            match_profile: p.name,
+            match_function: matchName,
+            tickets: matchTickets,
+        });
+        console.log(`   -> Generated match ${matchId} with ${matchTickets.length} tickets`);
     }
-  
+    console.log(`Generated ${matches.length} proposals for profile ${p.name}`);
     return matches;
 }
 

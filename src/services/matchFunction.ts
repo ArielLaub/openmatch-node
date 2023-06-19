@@ -4,12 +4,13 @@ import { IRunRequest, IMatch, RpcMatchFunction } from '../definitions';
 export function startMatchFunctionService(serverPort: number, run: (req: IRunRequest) => Promise<IMatch[]>) {
     let server = new grpc.Server();
     server.addService(RpcMatchFunction.service, { 
-        Run: async (call: grpc.ServerWritableStream<IRunRequest, IMatch>) => {
-            const matches = await run(call.request);
-            for (const match of matches) {
-                call.write(match);
-            }
-            call.end();
+        Run: (call: grpc.ServerWritableStream<IRunRequest, IMatch>) => {
+            run(call.request).then(matches => {
+                for(let i = 0; i < matches.length; i++) {
+                    call.write(matches[i]);
+                }
+                call.end();
+            });
         }
     });
 
