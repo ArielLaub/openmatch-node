@@ -1,9 +1,9 @@
-import { IRunRequest, IRunResponse, IMatch, IMatchProfile, ITicket } from 'openmatch-node/definitions';
+import { IRunRequest, IRunResponse, IMatchProfile, ITicket } from 'openmatch-node/definitions';
 import { startMatchFunctionService } from 'openmatch-node/services/matchfunction';
 import QueryService from 'openmatch-node/stubs/query';
-import { queryPools } from 'openmatch-node/helpers/querypool';
+import { queryPools } from 'openmatch-node/helpers/matchfunction';
 import { v4 as uuidv4 } from 'uuid';
-
+import marshalAny from 'openmatch-node/helpers/marshalAny'
 // the endpoint for the Open Match query service.
 const queryServiceAddress = 'open-match-query.open-match.svc.cluster.local:50503';
 // The number of tickets to fetch per pool per match.

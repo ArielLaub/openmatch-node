@@ -6,8 +6,7 @@ import {
     IAssignTicketsRequest,
     IAssignTicketsResponse,
     IFetchMatchesRequest,
-    IFetchMatchesResponse,
-    IMatch } from '../definitions';
+    IFetchMatchesResponse } from '../definitions';
 
 export default class BackendService implements IBackendService {
     private client: any;

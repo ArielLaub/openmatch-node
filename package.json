@@ -1,6 +1,6 @@
 {
   "name": "openmatch-node",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "an open match SDK implementation in typescript",
   "main": "dist/index.js",
   "files": [
@@ -12,8 +12,9 @@
     "./stubs/backend": "./dist/stubs/backend.js",
     "./stubs/query": "./dist/stubs/query.js",
     "./services/matchfunction": "./dist/services/matchFunction.js",
-    "./helpers/querypool": "./dist/helpers/queryPool.js",
-    "./helpers": "./dist/helpers/index.js"
+    "./helpers/matchfunction": "./dist/helpers/matchFunction.js",
+    "./helpers/marshalany": "./dist/helpers/marshalAny.js",
+    "./helpers/readrpcstream": "./dist/helpers/readRpcStream.js"
   },
   "typesVersions": {
     "*": {
@@ -32,11 +33,14 @@
       "services/matchfunction": [
         "dist/services/matchFunction.d.ts"
       ],
-      "helpers/querypool": [
-        "dist/helpers/queryPool.d.ts"
+      "helpers/matchfunction": [
+        "dist/helpers/matchFunction.d.ts"
       ],
-      "helpers": [
-        "dist/helpers/index.d.ts"
+      "helpers/readrpcstream": [
+        "dist/helpers/readRpcStream.d.ts"
+      ],
+      "helpers/marshalAny": [
+        "dist/helpers/marshalAny.d.ts"
       ]
     }
   },

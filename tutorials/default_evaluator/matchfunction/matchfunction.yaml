@@ -15,11 +15,35 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: mm102-tutorial-director
-  namespace: mm102-tutorial
+  name: default-evaluator-matchfunction
+  namespace: default-evaluator
+  labels:
+    app: default-evaluator
+    component: matchfunction
 spec:
   containers:
-  - name: mm102-tutorial-director
-    image: remarkable/mm102-tutorial-director:latest
+  - name: default-evaluator-matchfunction
+    image: remarkable/default-evaluator-matchfunction:latest
     imagePullPolicy: IfNotPresent
-  hostname: mm102-tutorial-director
+    ports:
+    - name: grpc
+      containerPort: 50502
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: default-evaluator-matchfunction
+  namespace: default-evaluator
+  labels:
+    app: default-evaluator
+    component: matchfunction
+spec:
+  selector:
+    app: default-evaluator
+    component: matchfunction
+  clusterIP: None
+  type: ClusterIP
+  ports:
+  - name: grpc
+    protocol: TCP
+    port: 50502

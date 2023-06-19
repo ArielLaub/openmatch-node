@@ -15,11 +15,11 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: mm102-tutorial-director
-  namespace: mm102-tutorial
+  name: default-evaluator-frontend
+  namespace: default-evaluator
 spec:
   containers:
-  - name: mm102-tutorial-director
-    image: remarkable/mm102-tutorial-director:latest
+  - name: default-evaluator-frontend
+    image: remarkable/default-evaluator-frontend:latest
     imagePullPolicy: IfNotPresent
-  hostname: mm102-tutorial-director
+  hostname: default-evaluator-frontend
