@@ -23,6 +23,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@types/uuid": "^9.0.2",
     "rimraf": "^5.0.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.1.3"

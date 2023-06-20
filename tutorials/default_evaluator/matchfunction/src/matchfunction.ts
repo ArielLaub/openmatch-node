@@ -2,13 +2,13 @@ import { IRunRequest, IRunResponse, IMatchProfile, ITicket } from 'openmatch-nod
 import { startMatchFunctionService } from 'openmatch-node/services/matchfunction';
 import QueryService from 'openmatch-node/stubs/query';
 import { queryPools } from 'openmatch-node/helpers/matchfunction';
-import { v4 as uuidv4 } from 'uuid';
 import marshalAny from 'openmatch-node/helpers/marshalany';
+import { v4 as uuidv4 } from 'uuid';
 
 // the endpoint for the Open Match query service.
 const queryServiceAddress = 'open-match-query.open-match.svc.cluster.local:50503';
 // The number of tickets to fetch per pool per match.
-const ticketsPerPoolPerMatch = 2; 
+const ticketsPerPoolPerMatch = 4; 
 // The port for hosting the Match Function.
 const serverPort = 50502; 
 // Match maker name
@@ -16,23 +16,23 @@ const matchName = 'basic-matchfunction';
 
 const queryClient = new QueryService(queryServiceAddress);
 
+// This match function defines the quality of a match as the sum of the wait time
+// of all the tickets in this match. When deduplicating overlapping matches, the
+// evaluator will pick the match with the higher the score, thus picking the one
+// with longer aggregate player wait times.
 function scoreCalculator(tickets: ITicket[]): number {
     let matchScore = 0.0;
+    const now = (new Date()).getTime();
     for(const ticket of tickets) {
-        matchScore += ticket.search_fields.double_args['time.enterqueue'];
+        const waitTime = now - ticket.search_fields.double_args['time.enterqueue'];
+        matchScore += waitTime;
     }
     return matchScore;
-  }
+}
 
 function makeMatches(p: IMatchProfile, poolTickets: { [pool: string]: ITicket[] }): IRunResponse[] {
     const responses: IRunResponse[] = [];
     // let count = 0;
-    const matchScore = scoreCalculator(matchTickets)
-    const evaluationInput = marshalAny({
-        Score: matchScore,
-    }, 'DefaultEvaluationCriteria');
-    marshalAny({}, 1);
-
     console.log(`Generating proposals for profile ${p.name}`);
     while (true && responses.length < 100) {
         let emptyPools = 0;
@@ -57,6 +57,10 @@ function makeMatches(p: IMatchProfile, poolTickets: { [pool: string]: ITicket[] 
         //const matchId = `profile-${p.name}-time-${new Date().toISOString()}-${count++}`;
         const matchId = uuidv4();
 
+        const evaluationInput = marshalAny({
+            score: scoreCalculator(matchTickets)
+        }, 'DefaultEvaluationCriteria');
+    
         responses.push({
             proposal: {
                 match_id: matchId,
@@ -64,7 +68,7 @@ function makeMatches(p: IMatchProfile, poolTickets: { [pool: string]: ITicket[] 
                 match_function: matchName,
                 tickets: matchTickets,
                 extensions: {
-
+                    evaluation_input: evaluationInput
                 }
             }
         });

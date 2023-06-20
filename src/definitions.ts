@@ -1,5 +1,6 @@
 import * as grpc from '@grpc/grpc-js';
 import * as protoLoader from '@grpc/proto-loader';
+import * as protobuf from 'protobufjs';
 
 const PROTO_FILES = [ 
     'query.proto', 
@@ -14,15 +15,23 @@ const PROTO_FILES = [
     'google/timestamp.proto'
 ].map((file) => __dirname + '/protos/' + file);
 
-const packageDefinition = protoLoader.loadSync(PROTO_FILES, {
+const protoOptions = {
     keepCase: true,
     longs: String,
     enums: String,
     defaults: true,
     oneofs: true
-});
+};
+const protoDefinitions = protoLoader.loadSync(PROTO_FILES, protoOptions);
+const protoDescriptor = <any>grpc.loadPackageDefinition(protoDefinitions);
 
-export const protoDescriptor = <any>grpc.loadPackageDefinition(packageDefinition);
+// internally protoLoader also does this but the library doesn't expose it
+// so we have to parse the proto files again...
+// root is used to resolve the Any type
+const root: protobuf.Root = new protobuf.Root();
+export const protoRoot = root.loadSync(PROTO_FILES, protoOptions)
+protoRoot.resolveAll();
+
 export const RpcQueryService = protoDescriptor.openmatch.QueryService;
 export const RpcFrontendService = protoDescriptor.openmatch.FrontendService;
 export const RpcBackendService = protoDescriptor.openmatch.BackendService;
