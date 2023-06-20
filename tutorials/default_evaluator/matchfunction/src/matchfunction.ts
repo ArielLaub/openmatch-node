@@ -59,7 +59,7 @@ function makeMatches(p: IMatchProfile, poolTickets: { [pool: string]: ITicket[] 
 
         const evaluationInput = marshalAny({
             score: scoreCalculator(matchTickets)
-        }, 'DefaultEvaluationCriteria');
+        }, 'openmatch.DefaultEvaluationCriteria');
     
         responses.push({
             proposal: {
