@@ -1,5 +1,5 @@
 import { IAny, protoRoot } from '../definitions';
-import { Message } from 'protobufjs';
+import { Message } from 'protobufjs/light';
 
 function uintArrayToBuffer(arr: Uint8Array): Buffer {
     const buf = Buffer.from(arr.buffer);
