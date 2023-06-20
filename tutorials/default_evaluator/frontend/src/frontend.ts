@@ -15,7 +15,7 @@ function gameModes(): string[] {
 }
 
 function enterQueueTime(): number {
-    return Math.floor(Math.random() * 1000);
+    return (new Date()).getTime() - Math.floor(Math.random() * 10000);
 }
 
 function makeTicket(): any {
