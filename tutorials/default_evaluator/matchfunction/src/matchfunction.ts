@@ -4,7 +4,7 @@ import QueryService from 'openmatch-node/stubs/query';
 import { queryPools } from 'openmatch-node/helpers/matchfunction';
 import marshalAny from 'openmatch-node/helpers/marshalany';
 import { v4 as uuidv4 } from 'uuid';
-
+import { Message } from 'protobufjs';
 // the endpoint for the Open Match query service.
 const queryServiceAddress = 'open-match-query.open-match.svc.cluster.local:50503';
 // The number of tickets to fetch per pool per match.
@@ -102,12 +102,6 @@ async function run(req: IRunRequest): Promise<IRunResponse[]> {
 }
 
 async function main(): Promise<void> {
-  // connect to Open Match query service.
-    // const evaluationInput = marshalAny({
-    //     score: 0
-    // }, 'DefaultEvaluationCriteria');
-    //console.log(JSON.stringify(protoRoot.toJSON(), null, 2));
-    console.log(protoRoot.lookupType('openmatch.MatchFunctionResult'))
     startMatchFunctionService(serverPort, run);
 }
 
