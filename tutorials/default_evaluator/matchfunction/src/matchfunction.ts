@@ -1,4 +1,4 @@
-import { IRunRequest, IRunResponse, IMatchProfile, ITicket } from 'openmatch-node/definitions';
+import { protoRoot, IRunRequest, IRunResponse, IMatchProfile, ITicket } from 'openmatch-node/definitions';
 import { startMatchFunctionService } from 'openmatch-node/services/matchfunction';
 import QueryService from 'openmatch-node/stubs/query';
 import { queryPools } from 'openmatch-node/helpers/matchfunction';
@@ -103,7 +103,11 @@ async function run(req: IRunRequest): Promise<IRunResponse[]> {
 
 async function main(): Promise<void> {
   // connect to Open Match query service.
-
+    // const evaluationInput = marshalAny({
+    //     score: 0
+    // }, 'DefaultEvaluationCriteria');
+    //console.log(JSON.stringify(protoRoot.toJSON(), null, 2));
+    console.log(protoRoot.lookupType('openmatch.MatchFunctionResult'))
     startMatchFunctionService(serverPort, run);
 }
 

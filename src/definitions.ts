@@ -28,9 +28,7 @@ const protoDescriptor = <any>grpc.loadPackageDefinition(protoDefinitions);
 // internally protoLoader also does this but the library doesn't expose it
 // so we have to parse the proto files again...
 // root is used to resolve the Any type
-const root: protobuf.Root = new protobuf.Root();
-export const protoRoot = root.loadSync(PROTO_FILES, protoOptions)
-protoRoot.resolveAll();
+export const protoRoot = protobuf.loadSync(PROTO_FILES);
 
 export const RpcQueryService = protoDescriptor.openmatch.QueryService;
 export const RpcFrontendService = protoDescriptor.openmatch.FrontendService;
