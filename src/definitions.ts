@@ -115,7 +115,7 @@ export interface IMatch {
     match_profile: string;
     tickets: ITicket[];
     match_function: string;
-    extensions: { [key: string]: IAny };
+    extensions?: { [key: string]: IAny };
 }
 
 export interface IQueryTicketsRequest {

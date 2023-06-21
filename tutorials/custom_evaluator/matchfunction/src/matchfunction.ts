@@ -16,20 +16,6 @@ const matchName = 'basic-matchfunction';
 
 const queryClient = new QueryService(queryServiceAddress);
 
-// This match function defines the quality of a match as the sum of the wait time
-// of all the tickets in this match. When deduplicating overlapping matches, the
-// evaluator will pick the match with the higher the score, thus picking the one
-// with longer aggregate player wait times.
-function scoreCalculator(tickets: ITicket[]): number {
-    let matchScore = 0.0;
-    const now = (new Date()).getTime();
-    for(const ticket of tickets) {
-        const waitTime = now - ticket.search_fields.double_args['time.enterqueue'];
-        matchScore += waitTime;
-    }
-    return matchScore;
-}
-
 function makeMatches(p: IMatchProfile, poolTickets: { [pool: string]: ITicket[] }): IRunResponse[] {
     const responses: IRunResponse[] = [];
     // let count = 0;
@@ -65,20 +51,12 @@ function makeMatches(p: IMatchProfile, poolTickets: { [pool: string]: ITicket[] 
         //const matchId = `profile-${p.name}-time-${new Date().toISOString()}-${count++}`;
         const matchId = uuidv4();
 
-        // the equiv of anypb in golang. this creates a google.protobuf.Any object
-        const evaluationInput = marshalAny({
-            score: scoreCalculator(matchTickets)
-        }, 'openmatch.DefaultEvaluationCriteria');
-    
         responses.push({
             proposal: {
                 match_id: matchId,
                 match_profile: p.name,
                 match_function: matchName,
-                tickets: matchTickets,
-                extensions: {
-                    evaluation_input: evaluationInput
-                }
+                tickets: matchTickets
             }
         });
         console.log(`   -> Generated match ${matchId} with ${matchTickets.length} tickets`);

@@ -38,7 +38,10 @@ class Decollider {
         this.responses.push({ match_id: m.match.match_id });
     }
 }
-  
+
+// the signature of this function is different from the original golang equivalent
+// these types are the ones used by the underlying grpc service so to eliminate any
+// mem copies we use them here as well.
 export default function evaluate(requests: IEvaluateRequest[]): IEvaluateResponse[] {
     const matches: IMatchEval[] = [];
     const now = (new Date).getTime() * 1e-6;
