@@ -45,7 +45,7 @@ class Decollider {
 export default function evaluate(requests: IEvaluateRequest[]): IEvaluateResponse[] {
     const matches: IMatchEval[] = [];
     const now = (new Date).getTime() * 1e-6;
-
+    console.log(`Evaluating called with ${requests.length} requests`);
     for (const request of requests) {
         const match = request.match;
         let maxWait = 0;
@@ -68,5 +68,6 @@ export default function evaluate(requests: IEvaluateRequest[]): IEvaluateRespons
         d.maybeAdd(m);
     }
 
+    console.log(`Evaluated ${d.responses.length} responses`);
     return d.responses;
 }

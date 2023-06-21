@@ -2,7 +2,6 @@ import { IRunRequest, IRunResponse, IMatchProfile, ITicket } from 'openmatch-nod
 import { startMatchFunctionService } from 'openmatch-node/services/matchfunction';
 import QueryService from 'openmatch-node/stubs/query';
 import { queryPools } from 'openmatch-node/helpers/matchfunction';
-import marshalAny from 'openmatch-node/helpers/marshalany';
 import { v4 as uuidv4 } from 'uuid';
 
 // the endpoint for the Open Match query service.
