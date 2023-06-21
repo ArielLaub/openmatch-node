@@ -34,6 +34,7 @@ export const RpcQueryService = protoDescriptor.openmatch.QueryService;
 export const RpcFrontendService = protoDescriptor.openmatch.FrontendService;
 export const RpcBackendService = protoDescriptor.openmatch.BackendService;
 export const RpcMatchFunction = protoDescriptor.openmatch.MatchFunction;
+export const RpcEvaluator = protoDescriptor.openmatch.Evaluator;
 
 // Google protobuf types
 export interface IAny {
@@ -224,11 +225,21 @@ export interface IDefaultEvaluationCriteria {
     score: number;
 }
 
+export interface IEvaluateRequest {
+    // A Matches proposed by the Match Function representing a candidate of the final results.
+    match: IMatch;
+}
+  
+export interface IEvaluateResponse {
+    // A Match ID representing a shortlisted match returned by the evaluator as the final result.
+    match_id: string;
+}
+
 // Open Match services
 export interface IFrontendService {
-    createTicket(req: ICreateTicketRequest): Promise<ITicket>;
-    deleteTicket(req: IDeleteTicketRequest): Promise<void>;
-    getTicket(req: IGetTicketRequest): Promise<ITicket>;
+    createTicket(request: ICreateTicketRequest): Promise<ITicket>;
+    deleteTicket(request: IDeleteTicketRequest): Promise<void>;
+    getTicket(request: IGetTicketRequest): Promise<ITicket>;
 }
 
 export interface IQueryService {

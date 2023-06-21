@@ -1,0 +1,28 @@
+{
+  "name": "custom-eval-tutorial-frontend",
+  "version": "1.0.0",
+  "description": "a open match game frontend in node.js",
+  "main": "dist/frontend.js",
+  "scripts": {
+    "dev": "ts-node-dev ./src/frontend.ts",
+    "build": "rimraf ./dist && tsc",
+    "start": "node ./dist/frontend.js",
+    "kube:build": "minikube image build -t remarkable/custom-eval-tutorial-frontend .",
+    "kube:logs": "kubectl logs custom-eval-tutorial-frontend -n custom-eval-tutorial",
+    "kube:apply": "kubectl apply -f frontend.yaml",
+    "kube:delete": "kubectl delete -f frontend.yaml",
+    "kube:reset": "kubectl delete -f frontend.yaml && kubectl apply -f frontend.yaml"
+  },
+  "author": "Ariel Laub",
+  "license": "ISC",
+  "dependencies": {
+    "@grpc/grpc-js": "^1.8.15",
+    "@grpc/proto-loader": "^0.7.7",
+    "openmatch-node": "^0.1.0"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.1.3"
+  }
+}

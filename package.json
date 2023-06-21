@@ -1,6 +1,6 @@
 {
   "name": "openmatch-node",
-  "version": "0.1.25",
+  "version": "0.1.26",
   "description": "an open match SDK implementation in typescript",
   "main": "dist/index.js",
   "files": [
@@ -12,6 +12,7 @@
     "./stubs/backend": "./dist/stubs/backend.js",
     "./stubs/query": "./dist/stubs/query.js",
     "./services/matchfunction": "./dist/services/matchFunction.js",
+    "./services/evaluator": "./dist/services/evaluator.js",
     "./helpers/matchfunction": "./dist/helpers/matchFunction.js",
     "./helpers/marshalany": "./dist/helpers/marshalAny.js",
     "./helpers/readrpcstream": "./dist/helpers/readRpcStream.js"
@@ -33,6 +34,9 @@
       "services/matchfunction": [
         "dist/services/matchFunction.d.ts"
       ],
+      "services/evaluator": [
+        "dist/services/evaluator.d.ts"
+      ],
       "helpers/matchfunction": [
         "dist/helpers/matchFunction.d.ts"
       ],
@@ -52,7 +56,7 @@
   "author": "Ariel Laub",
   "repository": {
     "type": "git",
-    "url": "git+https://git@github.com/ArielLaub/openmatch-node"
+    "url": "https://git@github.com/ArielLaub/openmatch-node"
   },
   "license": "MIT",
   "dependencies": {

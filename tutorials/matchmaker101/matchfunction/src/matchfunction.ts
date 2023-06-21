@@ -19,6 +19,14 @@ function makeMatches(p: IMatchProfile, poolTickets: { [pool: string]: ITicket[] 
     const responses: IRunResponse[] = [];
     // let count = 0;
     console.log(`Generating proposals for profile ${p.name}`);
+    // changed some minor things from the original code:
+    // 1. limit the number of matches to 100 so matching doesn't hang if
+    //    the frontend ran without a director for a long period of time.
+    // 2. changed match id to uuidv4() instead of using the time template
+    //    this was just annoying for me in the logs.
+    // 3. break out of loop only if all pools are empty not on the first one!
+    //    this I think is a bug throughout the tutorial codes in golang. but
+    //    I might be wrong...
     while (true && responses.length < 100) {
         let emptyPools = 0;
         const poolNames = Object.keys(poolTickets);

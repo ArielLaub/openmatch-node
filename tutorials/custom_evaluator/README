@@ -1,0 +1,10 @@
+a typescript implementation of the default evaluator Open Match tutorial
+
+https://open-match.dev/site/docs/tutorials/default_evaluator/
+
+code is organized in a similar structure to the original goland tutorial.
+
+Before deploying the yamls to k8s you need to set the REGISTRY_PLACEHOLDER to a real registry.
+
+If working locally with minikube you can build/load an docker image directly. you can name it whatever you want, just make sure to update the same image name in the corresponding yaml file so k8s can find the image.
+

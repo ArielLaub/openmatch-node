@@ -1,0 +1,31 @@
+{
+  "name": "custom-eval-tutorial-matchfunction",
+  "version": "1.0.0",
+  "description": "an open match matchfunction service in node.js",
+  "main": "dist/matchfunction.js",
+  "scripts": {
+    "dev": "ts-node-dev ./src/matchfunction.ts",
+    "build": "rimraf ./dist && tsc",
+    "docker-build": "npm run build && docker build -t openmatch/matchfunction .",
+    "start": "node ./dist/matchfunction.js",
+    "kube:build": "minikube image build -t remarkable/custom-eval-tutorial-matchfunction .",
+    "kube:logs": "kubectl logs custom-eval-tutorial-matchfunction -n custom-eval-tutorial",
+    "kube:apply": "kubectl apply -f matchfunction.yaml",
+    "kube:delete": "kubectl delete -f matchfunction.yaml",
+    "kube:reset": "kubectl delete -f matchfunction.yaml && kubectl apply -f matchfunction.yaml"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@grpc/grpc-js": "^1.8.15",
+    "@grpc/proto-loader": "^0.7.7",
+    "openmatch-node": "^0.1.5",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/uuid": "^9.0.2",
+    "rimraf": "^5.0.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.1.3"
+  }
+}
